@@ -48,11 +48,6 @@ stages:
             pwd
             echo "List files in current Directory"
             ls -la
-      - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
-        displayName: 'Replace tokens in MyPath.'
-        inputs:
-          sourcePath: $(System.DefaultWorkingDirectory)/terraform.tfvars
-          filePattern: '**\*.release.config'
       - task: TerraformInstaller@0
         displayName: Terraform Installation
         inputs:
