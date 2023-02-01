@@ -3,11 +3,11 @@ variable "agent_count" {
 }
 
 variable "aks_service_principal_app_id" {
-  default = ""
+  default = "$(clientId)"
 }
 
 variable "aks_service_principal_client_secret" {
-  default = ""
+  default = "$(clientSecret)"
 }
 
 variable "cluster_name" {
