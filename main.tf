@@ -43,10 +43,10 @@ resource "azurerm_kubernetes_cluster" "ednatak8s" {
   linux_profile {
     admin_username = "ubuntu"
 
-    ssh_key {
-      key_data = file(var.ssh_public_key)
-      path     = "/home/.ssh/authorized_keys"
-    }
+    # ssh_key {
+    #   key_data = file(var.ssh_public_key)
+    #   path     = "/home/.ssh/authorized_keys"
+    # }
   }
   network_profile {
     network_plugin    = "kubenet"
