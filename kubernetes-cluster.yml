@@ -20,7 +20,6 @@ stages:
 
       steps:
       - checkout: self
-      - checkout: repository
       - pwsh: |
           Get-ChildItem $(System.DefaultWorkingDirectory) -Recurse
         name: DebugCheckout
