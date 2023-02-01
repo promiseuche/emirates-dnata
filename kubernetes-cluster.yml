@@ -25,7 +25,7 @@ stages:
           Get-ChildItem $(System.DefaultWorkingDirectory) -Recurse
         name: DebugCheckout
       - task: AzureCLI@2
-      - name: Create_Keyvault
+        name: Create_Keyvault
         inputs:
           azureSubscription: 'ednatasp'
           scriptType: 'bash'
