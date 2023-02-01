@@ -1,8 +1,7 @@
-data "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
+resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
+  name     = var.resource_group_name
 }
-
 resource "random_id" "log_analytics_workspace_name_suffix" {
   byte_length = 8
 }
@@ -10,7 +9,7 @@ resource "random_id" "log_analytics_workspace_name_suffix" {
 resource "azurerm_log_analytics_workspace" "ednata" {
   location            = var.log_analytics_workspace_location
   name                = "${var.log_analytics_workspace_name}"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = azurerm_resource_group.rg
   sku                 = var.log_analytics_workspace_sku
 }
 

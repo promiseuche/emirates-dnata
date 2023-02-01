@@ -32,7 +32,7 @@ variable "log_analytics_workspace_sku" {
 }
 
 variable "resource_group_name" {
-  default     = "emirates-dnata"
+  default     = "emirates-dnata-rg"
   description = "Location of the resource group."
 }
 
