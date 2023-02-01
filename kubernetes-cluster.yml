@@ -7,6 +7,8 @@ trigger:
 stages:
   - stage: Deploy_Cluster
     displayName: 'Deploy Kubernetes Cluster'
+    variables:
+    - group: clustervar
     jobs:
     - job: Deploy_Kubernetes_Cluster
       pool:
@@ -37,15 +39,18 @@ stages:
             az storage account create --resource-group $(resource_group_name) --name "$(sa_prefix)" --sku Standard_LRS --encryption-services blob
             az storage container create --name $(sa_container_name) --account-name "$(sa_prefix)" --auth-mode login
       - task: Bash@3
-        displayName: Copy Script
+        displayName: Display Directory
         inputs:
-          name: 'copy_scripts'
+          name: 'Display_Directory'
           targetType: 'inline'
           script: |
             echo "Print Working Directory"
             pwd
             echo "List files in current Directory"
             ls -la
+            echo "Client ID = $(clientId)"
+            echo "Client Secret = $(clientSecret)"
+            echo "SSH Key = $(idrsa)"
       - task: TerraformInstaller@0
         displayName: Terraform Installation
         inputs:
