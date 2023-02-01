@@ -51,8 +51,8 @@ resource "azurerm_kubernetes_cluster" "ednatak8s" {
     network_plugin    = "kubenet"
     load_balancer_sku = "standard"
   }
-  service_principal {
-    client_id     = var.aks_service_principal_app_id
-    client_secret = var.aks_service_principal_client_secret
-  }
+#   service_principal {
+#     client_id     = var.aks_service_principal_app_id
+#     client_secret = var.aks_service_principal_client_secret
+#   }
 }
