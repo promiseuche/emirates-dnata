@@ -1,6 +1,9 @@
 name: $(year:yyyy).$(Month).$(DayOfMonth)$(rev:.r)
 trigger:
-- main
+  branches:
+    include:
+    - '*'
+  batch: true
 stages:
   - stage: Deploy_Cluster
     displayName: 'Deploy Kubernetes Cluster'

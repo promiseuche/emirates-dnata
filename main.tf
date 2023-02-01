@@ -9,7 +9,7 @@ resource "random_id" "log_analytics_workspace_name_suffix" {
 resource "azurerm_log_analytics_workspace" "ednata" {
   location            = var.log_analytics_workspace_location
   name                = "${var.log_analytics_workspace_name}"
-  resource_group_name = azurerm_resource_group.rg
+  resource_group_name = azurerm_resource_group.rg.name
   sku                 = var.log_analytics_workspace_sku
 }
 
@@ -44,7 +44,7 @@ resource "azurerm_kubernetes_cluster" "ednatak8s" {
     admin_username = "ubuntu"
 
     ssh_key {
-      key_data = file(var.ssh_public_key)
+      key_data = (var.ssh_public_key)
     }
   }
   network_profile {
