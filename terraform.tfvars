@@ -1,3 +1,3 @@
-aks_service_principal_app_id             = "8d1d85ac-6d77-4ce0-b4dc-82a9b322c4c1"
-aks_service_principal_client_secret      = ".YI8Q~sjgivcJ3cp_D9YejiJ5lqnXlWP3qC_bbIl"
-ssh_public_key                           = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDVFb7Uy/EQeeFTvYt2ijEF5rU4S+oE6DjD2l+iSYGMCoqDPckwmdPaAN0ebS4UK//hefx3nUkVwtZ4cGLDl6RS5teVwueH4F6/M+WSD78/hBLaVzC9nz/V2wMKz7jl2wflpXOGtKKPHK4xe78CW67kmelLPqHjlQCNteavgBZvwYZ5UvaHxosSXTswHqe28NTL6WYcCu+N5/iO9SnxSR8ahFLt35WnTogoyXySZdP8+lmoLQTM9bZLbyq/zEKxfvNbE8WbKRqaM3Gwj+U2VUJiF4cyENgniMtwP2JKkfZ9pqe1y70oePYRTSJMnYTOo4SOClFDRGcPvupW3Wtu2Ok4eqF1Tec0TrxIb4HjxtVFqUeW1lN8rrg95sdy9wLNzYSXpiFBz1//4isBw1W6cF8BxiGxesucOCW2/TpzwukiOH4YmrgraT69gfbrfXc4PXVr8jyjuVT91u/87c+SyeQ/yhNQ2kPmu449hoFB93QnJwdDMn4NxQ5RQIcYVeXEfh/fbf8XtcZDLkKdOdyO2W1fSZ/qYii8Cvf3a0vwYu8zmV4oU9yN3pvb1brv5EQIBAW0bgLxePLtZrPuK3d/1Q+iL8mg+L2qlUvMSb7ZpfaGV9PTpsig5NO699ZGjUg/3o1lsUu+9BTglaSL/NExrE8aT7mjZkoxSdOyomorGEvYQ== promiseuchenwachukwu@gmail.co"
+aks_service_principal_app_id             = ""
+aks_service_principal_client_secret      = ""
+ssh_public_key                           = ""
