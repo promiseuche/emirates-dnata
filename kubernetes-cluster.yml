@@ -48,9 +48,11 @@ stages:
             pwd
             echo "List files in current Directory"
             ls -la
-            echo "Client ID = $(clientId)"
-            echo "Client Secret = $(clientSecret)"
-            echo "SSH Key = $(idrsa)"
+      - task: colinsalmcorner.colinsalmcorner-buildtasks.replace-tokens-task.ReplaceTokens@1
+        displayName: 'Replace tokens in MyPath.'
+        inputs:
+          sourcePath: $(System.DefaultWorkingDirectory)/terraform.tfvars
+          filePattern: **\*.release.config 
       - task: TerraformInstaller@0
         displayName: Terraform Installation
         inputs:
@@ -73,7 +75,7 @@ stages:
           provider: 'azurerm'
           command: 'plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
-          commandOptions: '-input=false -var aks_service_principal_app_id=$(clientId) -var aks_service_principal_client_secret=$(clientSecret)  -var ssh_public_key=$(idrsa)  -var-file="../terraform/environments/$(Environment)/$(Environment)-ado-variables.tfvars"'
+          commandOptions: '-out=tfplan'
           environmentServiceNameAzureRM: 'ednatasp'
 
       - task: TerraformTaskV3@3
@@ -82,6 +84,6 @@ stages:
           provider: 'azurerm'
           command: 'apply'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
-          commandOptions: '-input=false -var aks_service_principal_app_id=$(clientId) -var aks_service_principal_client_secret=$(clientSecret)  -var ssh_public_key=$(idrsa)  -var-file="../terraform/environments/$(Environment)/$(Environment)-ado-variables.tfvars"'
+          commandOptions: 'tfplan'
           environmentServiceNameAzureRM: 'ednatasp'
 
