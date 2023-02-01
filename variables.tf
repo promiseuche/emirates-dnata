@@ -2,14 +2,6 @@ variable "agent_count" {
   default = 3
 }
 
-variable "aks_service_principal_app_id" {
-
-}
-
-variable "aks_service_principal_client_secret" {
-
-}
-
 variable "cluster_name" {
   default = "emiratesdnatak8s"
 }
@@ -46,6 +38,3 @@ variable "resource_group_name_prefix" {
   description = "Prefix of the resource group name that's combined with a random ID so name is unique in your Azure subscription."
 }
 
-variable "ssh_public_key" {
-
-}

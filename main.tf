@@ -1,7 +1,27 @@
 data "azurerm_resource_group" "rg" {
-  #location = var.resource_group_location
   name     = var.resource_group_name
 }
+
+data "azurerm_key_vault" "ednatakv" {
+  name                = "ednatakv"
+  resource_group_name = var.resource_group_name
+}
+
+data "azurerm_key_vault_secret" "clientId" {
+  name         = "clientId"
+  key_vault_id = data.azurerm_key_vault.ednatakv.id
+}
+
+data "azurerm_key_vault_secret" "clientSecret" {
+  name         = "clientSecret"
+  key_vault_id = data.azurerm_key_vault.ednatakv.id
+}
+
+data "azurerm_key_vault_secret" "idrsa" {
+  name         = "idrsa"
+  key_vault_id = data.azurerm_key_vault.ednatakv.id
+}
+
 resource "random_id" "log_analytics_workspace_name_suffix" {
   byte_length = 8
 }
@@ -44,7 +64,7 @@ resource "azurerm_kubernetes_cluster" "ednatak8s" {
     admin_username = "ubuntu"
 
     ssh_key {
-      key_data = var.ssh_public_key
+      key_data = "${data.azurerm_key_vault_secret.idrsa.value}"
     }
   }
   network_profile {
@@ -52,7 +72,7 @@ resource "azurerm_kubernetes_cluster" "ednatak8s" {
     load_balancer_sku = "standard"
   }
   service_principal {
-    client_id     = var.aks_service_principal_app_id
-    client_secret = var.aks_service_principal_client_secret
+    client_id     = "${data.azurerm_key_vault_secret.clientId.value}"
+    client_secret = "${data.azurerm_key_vault_secret.clientSecret.value}"
   }
 }
