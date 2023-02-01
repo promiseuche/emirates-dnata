@@ -39,9 +39,9 @@ stages:
           name: 'copy_scripts'
           targetType: 'inline'
           script: |
-            Write-Host "Print Working Directory"
+            echo "Print Working Directory"
             pwd
-            Write-Host "List files in current Directory"
+            echo "List files in current Directory"
             ls -la
       - task: TerraformInstaller@0
         displayName: Terraform Installation
@@ -52,7 +52,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/tf-files'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/tf-files'
           backendServiceArm: 'ednatasp'
           backendAzureRmResourceGroupName: '$(resource_group_name)'
           backendAzureRmStorageAccountName: '$(sa_prefix)'
@@ -64,7 +64,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/tf-files'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/tf-files'
           commandOptions: '-out=tfplan'
           environmentServiceNameAzureRM: 'ednatasp'
 
@@ -73,7 +73,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'apply'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/tf-files'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/tf-files'
           commandOptions: 'tfplan'
           environmentServiceNameAzureRM: 'ednatasp'
 
