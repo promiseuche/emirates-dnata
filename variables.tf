@@ -3,11 +3,11 @@ variable "agent_count" {
 }
 
 variable "aks_service_principal_app_id" {
-  default = "$(clientId)"
+
 }
 
 variable "aks_service_principal_client_secret" {
-  default = "$(clientSecret)"
+
 }
 
 variable "cluster_name" {
@@ -47,5 +47,5 @@ variable "resource_group_name_prefix" {
 }
 
 variable "ssh_public_key" {
-  default = "$(idrsa)"
+
 }

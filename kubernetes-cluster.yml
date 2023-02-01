@@ -73,7 +73,7 @@ stages:
           provider: 'azurerm'
           command: 'plan'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
-          commandOptions: '-out=tfplan'
+          commandOptions: '-out=tfplan -input=false -var aks_service_principal_app_id=$(clientId) -var aks_service_principal_client_secret=$(clientSecret)  -var ssh_public_key=$(idrsa)  -var-file="../terraform/environments/$(Environment)/$(Environment)-ado-variables.tfvars"'
           environmentServiceNameAzureRM: 'ednatasp'
 
       - task: TerraformTaskV3@3
@@ -82,6 +82,6 @@ stages:
           provider: 'azurerm'
           command: 'apply'
           workingDirectory: '$(System.DefaultWorkingDirectory)'
-          commandOptions: 'tfplan'
+          commandOptions: 'tfplan -input=false -var aks_service_principal_app_id=$(clientId) -var aks_service_principal_client_secret=$(clientSecret)  -var ssh_public_key=$(idrsa)  -var-file="../terraform/environments/$(Environment)/$(Environment)-ado-variables.tfvars"'
           environmentServiceNameAzureRM: 'ednatasp'
 
