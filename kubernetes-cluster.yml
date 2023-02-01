@@ -33,6 +33,16 @@ stages:
             VAULT_ID=$(az keyvault create --name "$(key_vault_name)" --resource-group "$(resource_group_name)" --location "$(az_region)" --query "id" -o tsv)
             az storage account create --resource-group $(resource_group_name) --name "$(sa_prefix)" --sku Standard_LRS --encryption-services blob
             az storage container create --name $(sa_container_name) --account-name "$(sa_prefix)" --auth-mode login
+      - task: Bash@3
+        displayName: 'copy_script'
+        inputs:
+          name: 'copy_scripts'
+          targetType: 'inline'
+          script: |
+            Write-Host "Print Working Directory"
+            pwd
+            Write-Host "List files in current Directory"
+            ls -la
       - task: TerraformInstaller@0
         displayName: Terraform Installation
         inputs:
