@@ -1,6 +1,6 @@
-resource "azurerm_resource_group" "rg" {
+data "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
   location = var.resource_group_location
-  name     = emirates-dnata-rg
 }
 
 resource "random_id" "log_analytics_workspace_name_suffix" {

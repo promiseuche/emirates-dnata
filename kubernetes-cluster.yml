@@ -10,24 +10,22 @@ stages:
         vmImage: ubuntu-latest
       variables:
         az_region: eastus
-        resource_group_name: emirates-dnata-main
-        subscription: ednatasp
+        resource_group_name: emirates-dnata-rg
+        serviceconnection: ednatasp
+        subscription: 'Visual Studio Enterprise'
         key_vault_name: ednatakv
         sa_prefix: ednatastorage
         sa_container_name: ednatablob
         tfstateFile: terraform.tfstate
 
       steps:
-      - task: AzureCLI@2
-        inputs:
-          azureSubscription: 'ednatasp' 
-          scriptType: 'bash'
-          scriptLocation: 'inlineScript'
-          inlineScript: |
-            az group create -n $(resource_group_name) -l $(az_region)
-            VAULT_ID=$(az keyvault create --name "$(key_vault_name)" --resource-group "$(resource_group_name)" --location "$(az_region)" --query "id" -o tsv)
-            az storage account create --resource-group $(resource_group_name) --name "$(sa_prefix)" --sku Standard_LRS --encryption-services blob
-            az storage container create --name $(sa_container_name) --account-name "$(sa_prefix)" --auth-mode login
+      - powershell: |
+          az login --identity
+          az account set --subscription $(subscription)
+          az group create -n $(resource_group_name) -l $(az_region)
+          VAULT_ID=$(az keyvault create --name "$(key_vault_name)" --resource-group "$(resource_group_name)" --location "$(az_region)" --query "id" -o tsv)
+          az storage account create --resource-group $(resource_group_name) --name "$(sa_prefix)" --sku Standard_LRS --encryption-services blob
+          az storage container create --name $(sa_container_name) --account-name "$(sa_prefix)" --auth-mode login
       - task: TerraformInstaller@0
         displayName: Terraform Installation
         inputs:
