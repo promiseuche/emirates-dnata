@@ -52,7 +52,7 @@ stages:
         displayName: 'Replace tokens in MyPath.'
         inputs:
           sourcePath: $(System.DefaultWorkingDirectory)/terraform.tfvars
-          filePattern: **\*.release.config 
+          filePattern: '**\*.release.config'
       - task: TerraformInstaller@0
         displayName: Terraform Installation
         inputs:
