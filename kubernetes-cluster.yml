@@ -19,7 +19,13 @@ stages:
         tfstateFile: terraform.tfstate
 
       steps:
+      - checkout: self
+      - checkout: templates
+      - pwsh: |
+          Get-ChildItem $(System.DefaultWorkingDirectory) -Recurse
+        name: DebugCheckout
       - task: AzureCLI@2
+      - name: Create_Keyvault
         inputs:
           azureSubscription: 'ednatasp'
           scriptType: 'bash'
