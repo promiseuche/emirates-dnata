@@ -1,6 +1,5 @@
-resource "azurerm_resource_group" "rg" {
-provider = azurerm.identity
-  location = var.resource_group_location
+data "azurerm_resource_group" "rg" {
+  #location = var.resource_group_location
   name     = var.resource_group_name
 }
 resource "random_id" "log_analytics_workspace_name_suffix" {
@@ -10,13 +9,13 @@ resource "random_id" "log_analytics_workspace_name_suffix" {
 resource "azurerm_log_analytics_workspace" "ednata" {
   location            = var.log_analytics_workspace_location
   name                = "${var.log_analytics_workspace_name}"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = data.azurerm_resource_group.rg.name
   sku                 = var.log_analytics_workspace_sku
 }
 
 resource "azurerm_log_analytics_solution" "ednata" {
   location              = azurerm_log_analytics_workspace.ednata.location
-  resource_group_name   = azurerm_resource_group.rg.name
+  resource_group_name   = data.azurerm_resource_group.rg.name
   solution_name         = "ContainerInsights"
   workspace_name        = azurerm_log_analytics_workspace.ednata.name
   workspace_resource_id = azurerm_log_analytics_workspace.ednata.id
@@ -28,9 +27,9 @@ resource "azurerm_log_analytics_solution" "ednata" {
 }
 
 resource "azurerm_kubernetes_cluster" "ednatak8s" {
-  location            = azurerm_resource_group.rg.location
+  location            = var.log_analytics_workspace_location
   name                = var.cluster_name
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = data.azurerm_resource_group.rg.name
   dns_prefix          = var.dns_prefix
   tags                = {
     Environment = "Development"
