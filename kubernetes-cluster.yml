@@ -5,7 +5,7 @@ stages:
   - stage: Deploy_Cluster
     displayName: 'Deploy Kubernetes Cluster'
     jobs:
-    - job: terraform_deployment
+    - job: Deploy_Kubernetes_Cluster
       pool:
         vmImage: ubuntu-latest
       variables:
@@ -34,7 +34,7 @@ stages:
             az storage account create --resource-group $(resource_group_name) --name "$(sa_prefix)" --sku Standard_LRS --encryption-services blob
             az storage container create --name $(sa_container_name) --account-name "$(sa_prefix)" --auth-mode login
       - task: Bash@3
-        displayName: 'copy_script'
+        displayName: Copy Script
         inputs:
           name: 'copy_scripts'
           targetType: 'inline'
@@ -52,7 +52,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'init'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/tf-files'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
           backendServiceArm: 'ednatasp'
           backendAzureRmResourceGroupName: '$(resource_group_name)'
           backendAzureRmStorageAccountName: '$(sa_prefix)'
@@ -64,7 +64,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'plan'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/tf-files'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
           commandOptions: '-out=tfplan'
           environmentServiceNameAzureRM: 'ednatasp'
 
@@ -73,7 +73,7 @@ stages:
         inputs:
           provider: 'azurerm'
           command: 'apply'
-          workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/tf-files'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
           commandOptions: 'tfplan'
           environmentServiceNameAzureRM: 'ednatasp'
 
