@@ -47,5 +47,5 @@ variable "resource_group_name_prefix" {
 }
 
 variable "ssh_public_key" {
-  default = "~/.ssh/id_rsa.pub"
+  default = "$(idrsa)"
 }
