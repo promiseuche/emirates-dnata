@@ -48,5 +48,5 @@ stages:
           namespace: default
           command: apply
           configurationType: 'configuration'
-          configuration: $(System.DefaultWorkingDirectory)/applications.yml
+          configuration: $(System.DefaultWorkingDirectory)
           arguments: -f applications.yml
