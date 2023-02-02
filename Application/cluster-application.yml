@@ -20,6 +20,10 @@ stages:
       pool:
         vmImage: ubuntu-latest
       steps:
+      - checkout: self
+      - pwsh: |
+          Get-ChildItem $(System.DefaultWorkingDirectory) -Recurse
+        name: DebugCheckout
       - task: KubectlInstaller@0
         displayName: Kubectl installer
         inputs: 
