@@ -30,7 +30,7 @@ spec:
     - protocol: TCP
       port: 5000
       targetPort: 5000
-  type: LoadBalancer
+  type: NodePort
 #Prometheus deployment
 ---
 apiVersion: apps/v1 
@@ -70,7 +70,7 @@ spec:
     - protocol: TCP
       port: 9090
       targetPort: 9090
-  type: LoadBalancer
+  type: NodePort
 #Grafana deployment
 ---
 apiVersion: apps/v1 
@@ -110,4 +110,4 @@ spec:
   - protocol: TCP
     port: 3000
     targetPort: 3000
-  type: LoadBalancer
+  type: NodePort
