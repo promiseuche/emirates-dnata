@@ -47,4 +47,6 @@ stages:
           kubernetesCluster: $(kubernetesCluster)
           namespace: default
           command: apply
-          arguments: -f applications.yml
+          configurationType: 'configuration'
+          configuration: $(System.DefaultWorkingDirectory)/applications.yml
+          #arguments: -f applications.yml
