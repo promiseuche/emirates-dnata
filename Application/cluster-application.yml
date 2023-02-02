@@ -1,5 +1,6 @@
 name: $(year:yyyy).$(Month).$(DayOfMonth)$(rev:.r)
-trigger: none
+trigger: 
+- main
 
 stages:
   - stage: Deploy_Application
