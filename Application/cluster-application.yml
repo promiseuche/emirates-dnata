@@ -7,7 +7,7 @@ stages:
     variables:
       az_region: eastus
       resource_group_name: emirates-dnata
-      serviceconnection: ednatasp
+      serviceconnection: emiratesdnata
       subscription: 'Visual Studio Enterprise'
       kubernetesCluster: emiratesdnatak8s
       subscriptionid: f83d6612-187a-4680-bd9a-029b77f35af3
@@ -33,17 +33,17 @@ stages:
             echo "SubscriptionID = '$(subscriptionid)'."
             echo "Resource Group = '$(resource_group_name)'."
             echo "Kubernetes cluster name = '$(kubernetesCluster)'."
-      - powershell: |
-          az login --identity
-          az account set --subscription $(subscriptionid)
-          az aks get-credentials --resource-group $(resource_group_name) --name $(kubernetesCluster)
-          kubectl apply -f applications.yml
-      # - task: Kubernetes@1
-      #   displayName: kubectl apply 
-      #   inputs:
-      #     connectionType: 'Kubernetes Service Connection'
-      #     azureSubscriptionEndpoint: $(serviceconnection)
-      #     azureResourceGroup: $(resource_group_name)
-      #     kubernetesCluster: $(kubernetesCluster)
-      #     command: apply
-      #     arguments: -f applications.yml
+      # - powershell: |
+      #     az login --identity
+      #     az account set --subscription $(subscriptionid)
+      #     az aks get-credentials --resource-group $(resource_group_name) --name $(kubernetesCluster)
+      #     kubectl apply -f applications.yml
+      - task: Kubernetes@1
+        displayName: kubectl apply 
+        inputs:
+          connectionType: 'Kubernetes Service Connection'
+          azureSubscriptionEndpoint: $(serviceconnection)
+          azureResourceGroup: $(resource_group_name)
+          kubernetesCluster: $(kubernetesCluster)
+          command: apply
+          arguments: -f applications.yml
