@@ -42,7 +42,7 @@ stages:
         displayName: kubectl apply 
         inputs:
           connectionType: 'Azure Resource Manager'
-          azureSubscriptionEndpoint: $(serviceconnection)
+          azureSubscriptionEndpoint: ednatasp
           azureResourceGroup: $(resource_group_name)
           kubernetesCluster: $(kubernetesCluster)
           namespace: default
