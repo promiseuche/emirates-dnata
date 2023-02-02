@@ -22,7 +22,7 @@ stages:
       - task: Kubernetes@1
         displayName: kubectl apply 
         inputs:
-          connectionType: Azure Resource Manager
+          connectionType: 'Kubernetes Service Connection'
           azureSubscriptionEndpoint: $(serviceconnection)
           azureResourceGroup: $(resource_group_name)
           kubernetesCluster: $(kubernetesCluster)
