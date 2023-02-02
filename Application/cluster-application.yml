@@ -7,7 +7,7 @@ stages:
     variables:
       az_region: eastus
       resource_group_name: emirates-dnata
-      serviceconnection: emiratesdnata
+      serviceconnection: ednatasp
       subscription: 'Visual Studio Enterprise'
       kubernetesCluster: emiratesdnatak8s
       subscriptionid: f83d6612-187a-4680-bd9a-029b77f35af3
@@ -41,9 +41,10 @@ stages:
       - task: Kubernetes@1
         displayName: kubectl apply 
         inputs:
-          connectionType: 'Kubernetes Service Connection'
+          connectionType: 'Azure Resource Manager'
           azureSubscriptionEndpoint: $(serviceconnection)
           azureResourceGroup: $(resource_group_name)
           kubernetesCluster: $(kubernetesCluster)
+          namespace: default
           command: apply
           arguments: -f applications.yml
