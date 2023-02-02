@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: web-server-con
+        image: nginx:1.16.1
+        ports:
+        - containerPort: 5000
+# service type loadbalancer       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:  web-server-svc
+spec:
+  selector:
+    app:  web-server
+  ports:
+    - protocol: TCP
+      port: 
+      targetPort: 5000
+  type: LoadBalancer
+#Prometheus deployment
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: prom
+  labels:
+    app: prom
+spec:
+  selector:
+    matchLabels:
+      app: prom
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: prom
+    spec: 
+      containers:
+      - name: prom
+        image: prom/prometheus
+        ports:
+        - containerPort: 9090
+#Expose prometheus
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prom
+  labels:
+    app: prom
+spec:
+  selector:
+    app: prom
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090
+  type: LoadBalancer
+#Grafana deployment
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec: 
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        ports:
+        - containerPort: 3000
+#Expose Grafana
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  selector:
+    app: grafana
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: LoadBalancer

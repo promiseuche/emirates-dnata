@@ -1,0 +1,30 @@
+name: $(year:yyyy).$(Month).$(DayOfMonth)$(rev:.r)
+trigger: none
+
+stages:
+  - stage: Deploy_Application
+    displayName: 'Deploy Application'
+    variables:
+      az_region: eastus
+      resource_group_name: emirates-dnata
+      serviceconnection: ednatasp
+      subscription: 'Visual Studio Enterprise'
+      kubernetesCluster: emiratesdnatak8s
+      key_vault_name: ednatakv
+      sa_prefix: ednatastorage
+      sa_container_name: ednatablob
+
+    jobs:
+    - job: Deploy_Kubernetes_Cluster
+      pool:
+        vmImage: ubuntu-latest
+      steps:
+      - task: Kubernetes@1
+        displayName: kubectl apply 
+        inputs:
+          connectionType: Azure Resource Manager
+          azureSubscriptionEndpoint: $(serviceconnection)
+          azureResourceGroup: $(resource_group_name)
+          kubernetesCluster: $(kubernetesCluster)
+          command: apply
+          arguments: -f applications.yml
