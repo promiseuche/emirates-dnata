@@ -49,4 +49,4 @@ stages:
           command: apply
           configurationType: 'configuration'
           configuration: $(System.DefaultWorkingDirectory)/applications.yml
-          #arguments: -f applications.yml
+          arguments: -f applications.yml
