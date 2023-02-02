@@ -28,7 +28,7 @@ spec:
     app:  web-server
   ports:
     - protocol: TCP
-      port: 
+      port: 5000
       targetPort: 5000
   type: LoadBalancer
 #Prometheus deployment
