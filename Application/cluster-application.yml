@@ -37,11 +37,6 @@ stages:
             echo "SubscriptionID = '$(subscriptionid)'."
             echo "Resource Group = '$(resource_group_name)'."
             echo "Kubernetes cluster name = '$(kubernetesCluster)'."
-      # - powershell: |
-      #     az login --identity
-      #     az account set --subscription $(subscriptionid)
-      #     az aks get-credentials --resource-group $(resource_group_name) --name $(kubernetesCluster)
-      #     kubectl apply -f applications.yml
       - task: Kubernetes@1
         displayName: kubectl apply 
         inputs:
